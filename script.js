@@ -1,6 +1,6 @@
 'use strict';
 
-const products = [
+const defaultProducts = [
   { id: 'essential-tee', name: 'Essential T-Shirt', category: 'clothing', type: 'Premium cotton jersey', price: 42, image: 'assets/product-tee.svg', badge: 'NEW ARRIVAL', colors: ['#F8F6F1', '#B69B80', '#3A2118'], description: 'A clean everyday essential with a considered fit and a subtle NUOVA signature.' },
   { id: 'signature-hoodie', name: 'Signature Hoodie', category: 'clothing', type: 'Soft heavyweight fleece', price: 89, image: 'assets/product-hoodie.svg', badge: 'BESTSELLER', colors: ['#76543C', '#D8CCBD'], description: 'A relaxed layer in a rich cocoa tone, designed for effortless everyday wear.' },
   { id: 'tailored-shirt', name: 'Everyday Shirt', category: 'clothing', type: 'Textured cotton blend', price: 74, image: 'assets/product-shirt.svg', badge: 'NEW ARRIVAL', colors: ['#D7C6B3', '#FFFFFF'], description: 'An understated shirt with a soft structure and an easy, refined silhouette.' },
@@ -11,11 +11,35 @@ const products = [
   { id: 'weekend-sneaker', name: 'Weekend Sneaker', category: 'shoes', type: 'Everyday comfort', price: 108, image: 'assets/cat-shoes.svg', badge: 'BESTSELLER', colors: ['#F3EDE3', '#9A795B'], description: 'A pared-back everyday shoe designed to bring comfort and simplicity together.' }
 ];
 
+function loadProducts() {
+  try {
+    const raw = localStorage.getItem('nuova-products');
+    if (!raw) {
+      localStorage.setItem('nuova-products', JSON.stringify(defaultProducts));
+      return [...defaultProducts];
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length ? parsed : [...defaultProducts];
+  } catch (error) {
+    return [...defaultProducts];
+  }
+}
+
+let products = loadProducts();
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const money = value => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 let cart = loadCart();
 let toastTimer;
+let drawerCloseTimer;
+let quickViewCloseTimer;
+let quickViewOpenTimer;
+
+function syncBodyLock() {
+  const anyOpen = !$('#cartDrawer').hidden || !$('#quickView').hidden || !$('#searchModal').hidden;
+  document.body.classList.toggle('locked', anyOpen);
+}
 
 function loadCart() {
   try {
@@ -94,22 +118,44 @@ function addToCart(productId, size = '') {
   showToast(`${product.name} added to your bag.`);
 }
 function openDrawer() {
+  clearTimeout(drawerCloseTimer);
+  clearTimeout(quickViewOpenTimer);
+  if (!$('#quickView').hidden) closeQuickView(true);
+  if (!$('#searchModal').hidden) closeSearch();
   closeMobileMenu();
   $('#overlay').hidden = false;
-  requestAnimationFrame(() => $('#overlay').classList.add('visible'));
   $('#cartDrawer').hidden = false;
-  requestAnimationFrame(() => $('#cartDrawer').classList.add('open'));
-  document.body.classList.add('locked');
+  void $('#cartDrawer').offsetWidth;
+  requestAnimationFrame(() => {
+    $('#overlay').classList.add('visible');
+    $('#cartDrawer').classList.add('open');
+  });
+  syncBodyLock();
   updateCartUI();
 }
-function closeDrawer() {
+function closeDrawer(immediate = false) {
+  clearTimeout(drawerCloseTimer);
+  toggleCheckoutForm(false);
   $('#cartDrawer').classList.remove('open');
-  $('#overlay').classList.remove('visible');
-  setTimeout(() => { $('#cartDrawer').hidden = true; $('#overlay').hidden = true; }, 260);
+  if ($('#quickView').hidden) $('#overlay').classList.remove('visible');
+  if (immediate) {
+    $('#cartDrawer').hidden = true;
+    if ($('#quickView').hidden) $('#overlay').hidden = true;
+    syncBodyLock();
+    return;
+  }
+  drawerCloseTimer = setTimeout(() => {
+    $('#cartDrawer').hidden = true;
+    if ($('#quickView').hidden) $('#overlay').hidden = true;
+    syncBodyLock();
+  }, 350);
   document.body.classList.remove('locked');
 }
 function openQuickView(productId) {
+  clearTimeout(quickViewCloseTimer);
+  clearTimeout(quickViewOpenTimer);
   if (!$('#searchModal').hidden) closeSearch();
+  if (!$('#cartDrawer').hidden) closeDrawer(true);
   const product = products.find(item => item.id === productId);
   if (!product) return;
   closeMobileMenu();
@@ -122,32 +168,47 @@ function openQuickView(productId) {
     <p class="demo-note">Product preview · Sample catalog item</p></div></div>`;
   $('#quickView').hidden = false;
   $('#overlay').hidden = false;
+  void $('#quickView').offsetWidth;
   requestAnimationFrame(() => { $('#overlay').classList.add('visible'); $('#quickView').classList.add('open'); });
-  document.body.classList.add('locked');
+  syncBodyLock();
   $('#quickAdd').addEventListener('click', () => {
     const size = $('#quickSize').value;
     if (!size) { showToast('Please choose a size first.'); $('#quickSize').focus(); return; }
     addToCart(productId, size);
     closeQuickView();
-    setTimeout(openDrawer, 280);
+    quickViewOpenTimer = setTimeout(openDrawer, 280);
   });
 }
-function closeQuickView() {
+function closeQuickView(immediate = false) {
+  clearTimeout(quickViewCloseTimer);
   $('#quickView').classList.remove('open');
-  $('#overlay').classList.remove('visible');
-  setTimeout(() => { $('#quickView').hidden = true; $('#overlay').hidden = true; }, 260);
+  if ($('#cartDrawer').hidden) $('#overlay').classList.remove('visible');
+  if (immediate) {
+    $('#quickView').hidden = true;
+    if ($('#cartDrawer').hidden) $('#overlay').hidden = true;
+    syncBodyLock();
+    return;
+  }
+  quickViewCloseTimer = setTimeout(() => {
+    $('#quickView').hidden = true;
+    if ($('#cartDrawer').hidden) $('#overlay').hidden = true;
+    syncBodyLock();
+  }, 260);
   document.body.classList.remove('locked');
 }
 function openSearch() {
+  clearTimeout(quickViewOpenTimer);
+  if (!$('#cartDrawer').hidden) closeDrawer(true);
+  if (!$('#quickView').hidden) closeQuickView(true);
   closeMobileMenu();
   $('#searchModal').hidden = false;
-  document.body.classList.add('locked');
+  syncBodyLock();
   setTimeout(() => $('#searchInput').focus(), 40);
   renderSearchResults('');
 }
 function closeSearch() {
   $('#searchModal').hidden = true;
-  document.body.classList.remove('locked');
+  syncBodyLock();
 }
 function renderSearchResults(term) {
   const normalized = term.trim().toLowerCase();
@@ -209,6 +270,10 @@ $('#menuToggle').addEventListener('click', () => {
 });
 $$('#mobileNav a').forEach(link => link.addEventListener('click', closeMobileMenu));
 $('#cartItems').addEventListener('click', event => {
+  if (event.target.closest('a[href^="#"]')) {
+    closeDrawer();
+    return;
+  }
   const row = event.target.closest('[data-cart-id]');
   if (!row) return;
   const item = cart.find(entry => entry.id === row.dataset.cartId && (entry.size || '') === row.dataset.cartSize);
@@ -218,7 +283,80 @@ $('#cartItems').addEventListener('click', event => {
   if (event.target.closest('[data-quantity="plus"]')) item.quantity += 1;
   updateCartUI();
 });
-$('#checkoutButton').addEventListener('click', () => showToast('Demo only — no checkout or payment service is connected.'));
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 760 && !$('#mobileNav').hidden) closeMobileMenu();
+});
+function toggleCheckoutForm(show) {
+  const form = $('#checkoutForm');
+  const button = $('#checkoutButton');
+  if (!form || !button) return;
+  form.hidden = !show;
+  button.hidden = show;
+}
+$('#checkoutButton').addEventListener('click', () => {
+  if (!cart.length) {
+    showToast('Your bag is empty. Add a product first.');
+    return;
+  }
+  toggleCheckoutForm(true);
+  $('#checkoutName').focus();
+});
+$('#checkoutCancel').addEventListener('click', () => toggleCheckoutForm(false));
+$('#checkoutForm').addEventListener('submit', event => {
+  event.preventDefault();
+  if (!cart.length) return;
+  const name = $('#checkoutName').value.trim();
+  const contact = $('#checkoutContact').value.trim();
+  const address = $('#checkoutAddress').value.trim();
+  if (!name || !contact || !address) {
+    showToast('Please fill in your name, contact, and address.');
+    return;
+  }
+  const orderItems = cart.map(item => {
+    const product = products.find(entry => entry.id === item.id);
+    return product ? {
+      id: product.id,
+      name: product.name,
+      size: item.size || 'One size',
+      quantity: item.quantity,
+      price: product.price
+    } : null;
+  }).filter(Boolean);
+
+  const order = {
+    id: `NV-${Date.now().toString().slice(-6)}`,
+    createdAt: new Date().toISOString(),
+    customer: { name, contact, address },
+    items: orderItems,
+    subtotal: getCartSubtotal(),
+    status: 'New'
+  };
+
+  try {
+    const existing = JSON.parse(localStorage.getItem('nuova-orders') || '[]');
+    const orders = Array.isArray(existing) ? existing : [];
+    orders.unshift(order);
+    localStorage.setItem('nuova-orders', JSON.stringify(orders));
+  } catch (error) {
+    showToast('Could not save order on this browser.');
+    return;
+  }
+
+  cart = [];
+  updateCartUI();
+  $('#checkoutForm').reset();
+  toggleCheckoutForm(false);
+  closeDrawer();
+  showToast(`Order ${order.id} placed! Thank you, ${name}.`);
+});
+window.addEventListener('storage', event => {
+  if (event.key === 'nuova-products') {
+    products = loadProducts();
+    const activeFilter = $('.filter-button.active')?.dataset.filter || 'all';
+    renderProducts(activeFilter);
+    updateCartUI();
+  }
+});
 $('#newsletterForm').addEventListener('submit', event => {
   event.preventDefault();
   const email = $('#newsletterEmail').value.trim();

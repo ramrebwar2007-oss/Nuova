@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUOVA — Admin Portal</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a class="admin-brand" href="index.html" aria-label="Back to NUOVA storefront">
+        <img src="assets/logo.svg" alt="NUOVA — Men's Luxury Wear">
+      </a>
+      <div class="admin-header-actions">
+        <a class="btn btn-outline" href="index.html">VIEW STOREFRONT ↗</a>
+        <button class="btn btn-dark" id="logoutButton" type="button" hidden>LOG OUT</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="login-card" id="loginSection" aria-labelledby="loginTitle">
+      <p class="eyebrow">STORE MANAGEMENT</p>
+      <h1 id="loginTitle">Admin <em>Sign In.</em></h1>
+      <p class="login-subtitle">Sign in to manage NUOVA products and view customer orders.</p>
+      <form id="loginForm" class="stack-form">
+        <label for="loginUsername">USERNAME</label>
+        <input id="loginUsername" type="text" autocomplete="username" placeholder="Enter username" required>
+        <label for="loginPassword">PASSWORD</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
+        <p class="form-error" id="loginError" role="alert" hidden></p>
+        <button class="btn btn-dark" type="submit">SIGN IN <span>→</span></button>
+      </form>
+      <p class="demo-hint">Test credentials: username <strong>admin</strong> · password <strong>12345</strong></p>
+    </section>
+
+    <section class="dashboard" id="adminApp" hidden>
+      <div class="dashboard-top">
+        <div>
+          <p class="eyebrow">NUOVA BACKOFFICE</p>
+          <h1>Store <em>Dashboard.</em></h1>
+        </div>
+        <div class="tab-bar" role="tablist" aria-label="Admin sections">
+          <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="products">PRODUCTS</button>
+          <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="orders">ORDERS <span class="badge-pill" id="newOrdersBadge">0</span></button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><span>TOTAL PRODUCTS</span><strong id="statProducts">0</strong></div>
+        <div class="stat-card"><span>TOTAL ORDERS</span><strong id="statOrders">0</strong></div>
+        <div class="stat-card"><span>NEW ORDERS</span><strong id="statNewOrders">0</strong></div>
+        <div class="stat-card"><span>TOTAL REVENUE</span><strong id="statRevenue">$0.00</strong></div>
+      </div>
+
+      <section id="productsTab" class="tab-panel">
+        <div class="panel-grid">
+          <form id="productForm" class="card stack-form">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">CATALOG</p>
+                <h2 id="formHeading">Add New <em>Product</em></h2>
+              </div>
+              <button class="text-btn" id="cancelEditButton" type="button" hidden>Cancel edit</button>
+            </div>
+
+            <input type="hidden" id="editingProductId">
+
+            <label for="prodName">PRODUCT NAME</label>
+            <input id="prodName" type="text" placeholder="e.g. Tailored Wool Coat" required>
+
+            <div class="two-col">
+              <div>
+                <label for="prodCategory">CATEGORY</label>
+                <select id="prodCategory">
+                  <option value="clothing">Clothing</option>
+                  <option value="shoes">Shoes</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+              </div>
+              <div>
+                <label for="prodPrice">PRICE (USD)</label>
+                <input id="prodPrice" type="number" min="1" step="0.01" placeholder="120" required>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label for="prodType">SUBTITLE / MATERIAL</label>
+                <input id="prodType" type="text" placeholder="e.g. Structured Italian wool" required>
+              </div>
+              <div>
+                <label for="prodBadge">BADGE</label>
+                <input id="prodBadge" type="text" placeholder="NEW ARRIVAL" value="NEW ARRIVAL">
+              </div>
+            </div>
+
+            <label for="prodColors">COLORS (COMMA-SEPARATED HEX)</label>
+            <input id="prodColors" type="text" value="#3A2118, #B69B80" placeholder="#3A2118, #E8D8C7">
+
+            <label for="prodImageFile">UPLOAD PRODUCT IMAGE</label>
+            <div class="upload-box">
+              <input id="prodImageFile" type="file" accept="image/*">
+              <div class="image-preview" id="imagePreview">
+                <img id="previewImg" src="assets/product-jacket.svg" alt="Product preview">
+                <span id="previewText">Default image selected — or upload your own photo above.</span>
+              </div>
+            </div>
+
+            <label for="prodImageUrl">OR IMAGE PATH / URL</label>
+            <input id="prodImageUrl" type="text" value="assets/product-jacket.svg" placeholder="assets/product-jacket.svg or https://...">
+
+            <label for="prodDescription">DESCRIPTION</label>
+            <textarea id="prodDescription" rows="3" placeholder="Describe fit, fabric, and details..." required></textarea>
+
+            <button class="btn btn-dark" type="submit" id="saveProductBtn">SAVE PRODUCT <span>↗</span></button>
+          </form>
+
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">STORE INVENTORY</p>
+                <h2>Published <em>Products</em></h2>
+              </div>
+              <button class="text-btn" id="resetProductsBtn" type="button">Reset defaults</button>
+            </div>
+            <div id="adminProductList" class="product-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ordersTab" class="tab-panel" hidden>
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">PURCHASE OPERATIONS</p>
+              <h2>Customer <em>Orders</em></h2>
+            </div>
+            <button class="text-btn" id="refreshOrdersBtn" type="button">Refresh</button>
+          </div>
+          <div id="ordersList" class="orders-list"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="adminToast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -145,7 +145,7 @@
     <div class="footer-main">
       <div class="footer-brand"><img src="assets/logo.svg" alt="NUOVA — Men's Luxury Wear"><p>Modern essentials.<br>Quietly distinctive.</p></div>
       <div class="footer-column"><h3>EXPLORE</h3><a href="#new-arrivals">New Arrivals</a><a href="#categories">Clothing</a><a href="#categories">Footwear</a><a href="#categories">Accessories</a></div>
-      <div class="footer-column"><h3>THE BRAND</h3><a href="#story">Our Story</a><a href="#story">Our Philosophy</a><a href="#top">Back to Top ↑</a></div>
+      <div class="footer-column"><h3>THE BRAND</h3><a href="#story">Our Story</a><a href="#story">Our Philosophy</a><a href="admin.html">Admin Portal</a><a href="#top">Back to Top ↑</a></div>
       <div class="footer-column"><h3>CONNECT</h3><span>Contact details — add later</span><span>Instagram — coming soon</span><span>Customer care — coming soon</span></div>
     </div>
     <div class="footer-bottom"><span>© <span id="year"></span> NUOVA. ALL RIGHTS RESERVED.</span><span>MEN’S LUXURY WEAR</span><a href="#top">BACK TO TOP ↑</a></div>
@@ -155,7 +155,24 @@
   <aside class="side-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden>
     <div class="drawer-header"><div><p class="eyebrow">YOUR SELECTION</p><h2 id="cartTitle">Shopping bag <span id="drawerCount">(0)</span></h2></div><button class="icon-button drawer-close" aria-label="Close shopping bag"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div>
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer"><div class="subtotal-row"><span>SUBTOTAL</span><strong id="cartSubtotal">$0.00</strong></div><p>Shipping and taxes are calculated at checkout.</p><button class="button button-dark checkout-button" id="checkoutButton">CONTINUE TO CHECKOUT <span>↗</span></button><p class="demo-note">Demo storefront: checkout and payment are not connected.</p></div>
+    <div class="cart-footer">
+      <div class="subtotal-row"><span>SUBTOTAL</span><strong id="cartSubtotal">$0.00</strong></div>
+      <p>Shipping and taxes are calculated at checkout.</p>
+      <button class="button button-dark checkout-button" id="checkoutButton" type="button">CONTINUE TO CHECKOUT <span>↗</span></button>
+      <form class="checkout-form" id="checkoutForm" hidden>
+        <label for="checkoutName">FULL NAME</label>
+        <input id="checkoutName" type="text" placeholder="Your full name" required>
+        <label for="checkoutContact">PHONE OR EMAIL</label>
+        <input id="checkoutContact" type="text" placeholder="Phone number or email" required>
+        <label for="checkoutAddress">DELIVERY ADDRESS</label>
+        <input id="checkoutAddress" type="text" placeholder="City, street, building" required>
+        <div class="checkout-actions">
+          <button class="button button-outline" id="checkoutCancel" type="button">BACK</button>
+          <button class="button button-dark" type="submit">PLACE ORDER <span>↗</span></button>
+        </div>
+      </form>
+      <p class="demo-note">Orders are saved locally for store admin review.</p>
+    </div>
   </aside>
 
   <section class="search-modal" id="searchModal" aria-label="Search products" aria-modal="true" role="dialog" hidden>
