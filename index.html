@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="NUOVA — Men's Luxury Wear. A refined approach to modern men's style.">
+  <title>NUOVA — Men's Luxury Wear</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="announcement-bar">
+    <p>THE NEW STANDARD OF MEN’S STYLE</p>
+    <span>DISCOVER THE NUOVA EDITION</span>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+      <a class="brand-lockup" href="#top" aria-label="NUOVA home"><img src="assets/logo.svg" alt="NUOVA — Men's Luxury Wear"></a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#new-arrivals">NEW ARRIVALS</a>
+        <a href="#categories">CLOTHING</a>
+        <a href="#categories">SHOES</a>
+        <a href="#categories">ACCESSORIES</a>
+        <a href="#story">OUR STORY</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button search-open" aria-label="Search products">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        </button>
+        <button class="icon-button bag-open" aria-label="Open shopping bag">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+          <span class="bag-count" id="bagCount">0</span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
+      <a href="#new-arrivals">New Arrivals</a>
+      <a href="#categories">Clothing</a>
+      <a href="#categories">Shoes</a>
+      <a href="#categories">Accessories</a>
+      <a href="#story">Our Story</a>
+      <button class="mobile-search search-open">Search the collection</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="heroTitle">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span></span> A NEW POINT OF VIEW</p>
+        <h1 id="heroTitle">ELEVATE<br><em>YOUR</em> EVERYDAY.</h1>
+        <p class="hero-description">A refined approach to modern men’s style. Thoughtful essentials, timeless silhouettes, and details that speak quietly.</p>
+        <div class="hero-buttons">
+          <a class="button button-dark" href="#new-arrivals">EXPLORE COLLECTION <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#story">DISCOVER NUOVA <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-note"><span class="note-line"></span><span>LESS, BUT BETTER.</span><span class="note-line"></span></div>
+      </div>
+      <div class="hero-art reveal reveal-delay-1">
+        <img src="assets/hero-editorial.svg" alt="Editorial illustration of a man wearing a tailored cocoa-brown jacket">
+        <div class="hero-art-caption"><span>THE NUOVA EDIT</span><span>01 / 04</span></div>
+        <div class="hero-stamp" aria-hidden="true">N<br><small>EST.</small></div>
+      </div>
+      <div class="hero-bottomline"><span>CONTEMPORARY MENSWEAR</span><span>DESIGNED FOR EVERY DAY</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+
+    <section class="intro-strip" aria-label="Brand statement">
+      <p>CONFIDENCE IN EVERY DETAIL <span>✳</span> QUIETLY DISTINCTIVE <span>✳</span> MADE TO BE WORN</p>
+    </section>
+
+    <section class="category-section section-shell" id="categories">
+      <div class="section-heading reveal">
+        <div><p class="eyebrow">FIND YOUR UNIFORM</p><h2>SHOP BY <em>category.</em></h2></div>
+        <a class="text-link" href="#new-arrivals">VIEW EVERYTHING <span>→</span></a>
+      </div>
+      <div class="category-grid">
+        <a class="category-card reveal" href="#new-arrivals" data-category-link="clothing">
+          <div class="category-image"><img src="assets/cat-clothing.svg" alt="Minimal premium men's clothing illustration"><span class="category-arrow">↗</span></div>
+          <div class="category-label"><h3>CLOTHING</h3><span>01</span></div>
+        </a>
+        <a class="category-card reveal reveal-delay-1" href="#new-arrivals" data-category-link="shoes">
+          <div class="category-image"><img src="assets/cat-shoes.svg" alt="Cream luxury sneaker illustration"><span class="category-arrow">↗</span></div>
+          <div class="category-label"><h3>FOOTWEAR</h3><span>02</span></div>
+        </a>
+        <a class="category-card reveal reveal-delay-2" href="#new-arrivals" data-category-link="accessories">
+          <div class="category-image"><img src="assets/cat-accessories.svg" alt="Minimal brown leather watch illustration"><span class="category-arrow">↗</span></div>
+          <div class="category-label"><h3>ACCESSORIES</h3><span>03</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="feature-section">
+      <div class="feature-image reveal"><img src="assets/hero-editorial.svg" alt="NUOVA editorial menswear campaign illustration"></div>
+      <div class="feature-copy reveal reveal-delay-1">
+        <p class="eyebrow">THE NEW COLLECTION · 2026</p>
+        <h2>TIMELESS<br><em>BY DESIGN.</em></h2>
+        <p>Versatile pieces. Considered details. A wardrobe built around the way you move through the world.</p>
+        <a class="button button-outline" href="#new-arrivals">DISCOVER THE EDIT <span>↗</span></a>
+        <span class="feature-index">N° 001 — THE EVERYDAY EDIT</span>
+      </div>
+    </section>
+
+    <section class="products-section section-shell" id="new-arrivals">
+      <div class="section-heading products-heading reveal">
+        <div><p class="eyebrow">CONSIDERED ESSENTIALS</p><h2>THE LATEST <em>selection.</em></h2></div>
+        <div class="product-controls" role="group" aria-label="Filter products">
+          <button class="filter-button active" data-filter="all">ALL</button>
+          <button class="filter-button" data-filter="clothing">CLOTHING</button>
+          <button class="filter-button" data-filter="shoes">SHOES</button>
+          <button class="filter-button" data-filter="accessories">ACCESSORIES</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+      <div class="products-bottom"><span id="productCount">08 PRODUCTS</span><span>MADE FOR YOUR EVERYDAY</span></div>
+    </section>
+
+    <section class="brand-story" id="story">
+      <div class="story-image reveal"><img src="assets/hero-editorial.svg" alt="A refined NUOVA menswear look in warm neutral tones"></div>
+      <div class="story-copy reveal reveal-delay-1">
+        <p class="eyebrow">THE NUOVA PHILOSOPHY</p>
+        <h2>STYLE THAT<br>FEELS <em>like you.</em></h2>
+        <p>NUOVA is built on the belief that great style does not need to shout. We bring together clean lines, understated tones, and everyday pieces designed to feel considered.</p>
+        <a href="#top" class="text-link">GET TO KNOW US <span>→</span></a>
+        <div class="story-signature">NUOVA <span>— MEN’S LUXURY WEAR</span></div>
+      </div>
+    </section>
+
+    <section class="newsletter-section section-shell reveal">
+      <div><p class="eyebrow">A NOTE FROM NUOVA</p><h2>THE ART OF<br><em>WHAT’S NEXT.</em></h2><p>Be first to discover new arrivals and the latest from our world.</p></div>
+      <form class="newsletter-form" id="newsletterForm">
+        <label for="newsletterEmail">YOUR EMAIL ADDRESS</label>
+        <div class="newsletter-input-row"><input type="email" id="newsletterEmail" placeholder="Enter your email" required><button type="submit" aria-label="Subscribe">JOIN <span>↗</span></button></div>
+        <p class="form-note" id="newsletterMessage" aria-live="polite">By joining, you agree to receive updates from NUOVA. Demo form — no email is sent.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand"><img src="assets/logo.svg" alt="NUOVA — Men's Luxury Wear"><p>Modern essentials.<br>Quietly distinctive.</p></div>
+      <div class="footer-column"><h3>EXPLORE</h3><a href="#new-arrivals">New Arrivals</a><a href="#categories">Clothing</a><a href="#categories">Footwear</a><a href="#categories">Accessories</a></div>
+      <div class="footer-column"><h3>THE BRAND</h3><a href="#story">Our Story</a><a href="#story">Our Philosophy</a><a href="#top">Back to Top ↑</a></div>
+      <div class="footer-column"><h3>CONNECT</h3><span>Contact details — add later</span><span>Instagram — coming soon</span><span>Customer care — coming soon</span></div>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> NUOVA. ALL RIGHTS RESERVED.</span><span>MEN’S LUXURY WEAR</span><a href="#top">BACK TO TOP ↑</a></div>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="side-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-modal="true" role="dialog" hidden>
+    <div class="drawer-header"><div><p class="eyebrow">YOUR SELECTION</p><h2 id="cartTitle">Shopping bag <span id="drawerCount">(0)</span></h2></div><button class="icon-button drawer-close" aria-label="Close shopping bag"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer"><div class="subtotal-row"><span>SUBTOTAL</span><strong id="cartSubtotal">$0.00</strong></div><p>Shipping and taxes are calculated at checkout.</p><button class="button button-dark checkout-button" id="checkoutButton">CONTINUE TO CHECKOUT <span>↗</span></button><p class="demo-note">Demo storefront: checkout and payment are not connected.</p></div>
+  </aside>
+
+  <section class="search-modal" id="searchModal" aria-label="Search products" aria-modal="true" role="dialog" hidden>
+    <div class="search-modal-inner"><div class="search-top"><p class="eyebrow">FIND YOUR NEXT ESSENTIAL</p><button class="icon-button search-close" aria-label="Close search"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></div><label class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="Search the collection…" autocomplete="off"></label><div id="searchResults" class="search-results"><p>TRY: T-SHIRTS, HOODIES, SHOES</p></div></div>
+  </section>
+
+  <section class="quick-view-modal" id="quickView" role="dialog" aria-modal="true" aria-label="Product quick view" hidden>
+    <button class="icon-button quick-close" aria-label="Close product details"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+    <div id="quickViewContent"></div>
+  </section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

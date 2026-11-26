@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1050">
+ <defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F1ECE5"/><stop offset="1" stop-color="#D8C9B8"/></linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#E9E1D7"/><stop offset="1" stop-color="#CDBBA8"/></linearGradient>
+  <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#684732"/><stop offset=".55" stop-color="#3E291F"/><stop offset="1" stop-color="#79563D"/></linearGradient>
+  <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFDF8"/><stop offset="1" stop-color="#D8CFC3"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="22"/></filter>
+ </defs>
+ <rect width="1100" height="1050" fill="url(#bg)"/>
+ <rect x="80" y="0" width="580" height="1050" fill="url(#wall)" opacity=".65"/>
+ <path d="M760 0H1100V1050H760Z" fill="#C9B7A4" opacity=".35"/>
+ <path d="M0 760H1100V1050H0Z" fill="#D1C2B2" opacity=".55"/>
+ <path d="M700 80V860 M760 80V860" stroke="#B8A48F" stroke-width="3" opacity=".45"/>
+ <ellipse cx="560" cy="900" rx="270" ry="48" fill="#5F4938" opacity=".18" filter="url(#shadow)"/>
+ <!-- head -->
+ <path d="M435 240 Q420 145 500 115 Q590 100 622 186 L610 300 Q565 360 480 328Z" fill="#9B7155"/>
+ <path d="M420 205 Q425 92 545 95 Q625 105 635 188 Q577 148 520 162 Q471 177 420 205Z" fill="#2B201A"/>
+ <!-- neck -->
+ <path d="M477 300 L472 390 L582 405 L578 315Z" fill="#8B6349"/>
+ <!-- torso coat -->
+ <path d="M350 390 Q420 340 470 350 L580 360 Q675 380 738 470 L830 900 Q610 970 295 900 L337 500Z" fill="url(#coat)"/>
+ <path d="M470 357 L530 372 L605 410 L566 520 L484 470Z" fill="url(#shirt)"/>
+ <path d="M580 360 L530 372 L568 520 L650 445Z" fill="#D8C8B7"/>
+ <path d="M530 372 L568 520 L545 900" stroke="#2A1B14" stroke-width="5" opacity=".55" fill="none"/>
+ <path d="M350 425 Q410 460 484 470 L545 900 L295 900 L337 500Z" fill="#513524" opacity=".45"/>
+ <path d="M738 470 Q670 520 650 620 L830 900 L710 920 L620 520Z" fill="#2E2018" opacity=".3"/>
+ <!-- trousers -->
+ <path d="M330 870 Q460 895 545 900 L520 1050H300Z" fill="#30241D"/>
+ <path d="M545 900 Q650 900 760 875 L820 1050H560Z" fill="#3C2A20"/>
+ <!-- tailoring details -->
+ <path d="M370 560L470 570 M635 575L730 555" stroke="#A88B70" stroke-width="4" opacity=".7"/>
+ <circle cx="595" cy="610" r="5" fill="#C4A98B"/><circle cx="603" cy="690" r="5" fill="#C4A98B"/>
+ <path d="M438 470L475 510L445 540" stroke="#B39A81" stroke-width="3" fill="none" opacity=".8"/>
+ <rect x="80" y="80" width="940" height="890" fill="none" stroke="#FFFDF8" stroke-width="2" opacity=".65"/>
+ <text x="115" y="920" fill="#6B5543" font-family="Arial,sans-serif" font-size="17" letter-spacing="6">THE NUOVA EDIT</text>
+</svg>
